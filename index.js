@@ -13,6 +13,7 @@ const PORT = process.env.PORT || 5000;
 //including all routes
 app.use('/signup', require('./Routes/UserRoutes/signUp'));
 app.use('/signin', require('./Routes/UserRoutes/signIn'));
+app.use('/test', require('./Routes/PostRoutes/testRoute'));
 
 app.listen(PORT, () => {
   console.log(`server started at port ${PORT}`);
