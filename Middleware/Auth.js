@@ -1,6 +1,6 @@
 const jwt = require('jsonwebtoken');
 const config = require('config');
-
+const x = process.env.jwtSecret;
 //Middleware to check the JWT is valid or not
 
 module.exports = function (req, res, next) {
@@ -13,7 +13,7 @@ module.exports = function (req, res, next) {
 
   //Token Verification
   try {
-    const decoded = jwt.verify(token,config.get('jwtSecret'));
+    const decoded = jwt.verify(token,x);
     req.user = decoded.user;
     console.log(req.user);
     next();
