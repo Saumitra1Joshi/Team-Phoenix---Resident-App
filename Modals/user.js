@@ -15,7 +15,6 @@ const UserSchema = mongoose.Schema({
   password: {
     type: String,
   },
-  googleID: String,
   image: {
     type: String,
   },
