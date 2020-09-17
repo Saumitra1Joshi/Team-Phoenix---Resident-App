@@ -4,7 +4,7 @@
   "description": "Social media app",
   "main": "index.js",
   "scripts": {
-    "start": "node index",
+    "start": "set NODE_ENV=development&& node index",
     "server":"nodemon index"
   },
   "author": "Team Pheonix (Shubham)",
