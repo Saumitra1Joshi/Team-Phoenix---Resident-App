@@ -1,5 +1,4 @@
-function classify_comment(comment){
-        const {google} = require('googleapis');
+const {google} = require('googleapis');
 
         API_KEY = 'AIzaSyDvG3vlovfaGB-ZxN27LHIIFbuzIRr6sz0';
         DISCOVERY_URL =
@@ -9,7 +8,7 @@ function classify_comment(comment){
          .then(client => {
                 const analyzeRequest = {
                 comment: {
-                text: comment,
+                text: "Trump is an idiot",
                 },
                 requestedAttributes: {
                 TOXICITY: {},
@@ -24,10 +23,10 @@ function classify_comment(comment){
           (err, response) => {
             if (err) throw err;
             if(response.data.attributeScores.TOXICITY.spanScores[0].score.value>0.45){
-                return true
+                console.log("true")
             }
             else {
-                return false
+                console.log("false")
             }
           });
      })
@@ -35,5 +34,3 @@ function classify_comment(comment){
       throw err;
     });
     
-}
-module.exports = {classify_comment}
