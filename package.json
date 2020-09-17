@@ -4,8 +4,8 @@
   "description": "Social media app",
   "main": "index.js",
   "scripts": {
-    "start": "node index",
-    "server":"nodemon index",
+    "start": "node server",
+    "server":"nodemon server",
   },
   "author": "Team Pheonix (Shubham)",
   "license": "ISC",
