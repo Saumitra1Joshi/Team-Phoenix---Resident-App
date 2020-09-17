@@ -13,7 +13,7 @@ module.exports = function (req, res, next) {
 
   //Token Verification
   try {
-    const decoded = jwt.verify(token,"NisPranshSauShubhUm");
+    const decoded = jwt.verify(token,process.env.jwtSecret);
     req.user = decoded.user;
     console.log(req.user);
     next();
