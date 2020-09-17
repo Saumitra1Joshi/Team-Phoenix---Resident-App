@@ -5,6 +5,7 @@
   "main": "index.js",
   "scripts": {
     "start": "set NODE_ENV=development&& node index",
+    "start-prod": "set NODE_ENV=development&& node index",
     "server":"nodemon index"
   },
   "author": "Team Pheonix (Shubham)",
