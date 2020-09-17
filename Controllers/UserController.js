@@ -30,7 +30,7 @@ exports.SignUp = async (req, res) => {
 
     //password encryption
     const salt = await bcrypt.genSalt(10);
-    user.password = await bcrypt.hash(password.toString(), salt);
+    user.password = await bcrypt.hash(req.body.password.toString(), salt);
     await user.save();
 
     //after saving lets return JWT
