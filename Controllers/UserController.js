@@ -9,7 +9,7 @@ exports.SignUp = async (req, res) => {
   if (!errors.isEmpty) {
     return res.status(400).json({ errors: errors.array() });
   }
-
+  console.log(req.body);
   const { name, username, email, password } = req.body;
   try {
     //See if user exists
@@ -30,7 +30,7 @@ exports.SignUp = async (req, res) => {
 
     //password encryption
     const salt = await bcrypt.genSalt(10);
-    user.password = await bcrypt.hash(password, salt);
+    user.password = await bcrypt.hash(req.body.password, salt);
     await user.save();
 
     //after saving lets return JWT
