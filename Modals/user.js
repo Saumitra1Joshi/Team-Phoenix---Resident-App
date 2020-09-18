@@ -1,6 +1,17 @@
 const mongoose = require('mongoose');
+const Schema = mongoose.Schema;
+const locationSchema = new Schema({
+  longitude: {
+    type: String,
+    required: true,
+  },
+  latitude: {
+    type: String,
+    required: true,
+  },
+});
 
-const UserSchema = mongoose.Schema({
+const UserSchema = new Schema({
   name: {
     type: String,
     required: true,
@@ -19,6 +30,7 @@ const UserSchema = mongoose.Schema({
   image: {
     type: String,
   },
+  location: locationSchema,
   date: {
     type: Date,
     default: Date.now,
