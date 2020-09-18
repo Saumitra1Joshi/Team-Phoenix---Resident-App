@@ -7,7 +7,7 @@
     "start": "node server",
     "server": "nodemon server"
   },
-  "author": "Team Pheonix (Shubham)",
+  "author": "Team Pheonix",
   "license": "ISC",
   "dependencies": {
     "bcryptjs": "^2.4.3",
