@@ -39,14 +39,69 @@ router.post(
 
 //public route
 
-router.get('/allposts', async (req, res) => {
-  try {
-    const posts = await Posts.find({}).sort({ date: -1 });
-    res.json(posts);
-  } catch (err) {
-    console.error(err.message);
-    res.status(500).send('server Error');
-  }
+router.get('/allposts/:lng/:lat', (req, res, next) => {
+  
+  Posts.aggregate().near({
+    near: [parseFloat(req.params.lng), parseFloat(req.params.lat)],
+    maxDistance: 3/6371,
+    spherical: true,
+    distanceField: "dis"
+   })
+   .then(posts => {
+    console.log(posts);
+    if (posts) {
+      if (posts.length === 0)
+        return res.send({
+          message:
+            "maxDistance is too small, or your query params {lng, lat} are incorrect (too big or too small)."
+        });
+      return res.send(posts);
+    }
+  })
+  .catch(next);
+  // try{
+  //   const post = await Posts.find({ location : { $near : [ -73.9667, 40.78 ], $maxDistance: 0.10 } });
+  //   console.log(post);
+  //   if(!post){
+  //     return res.status(400).send({errors: "Posts not found"});
+  //   }
+  //   const nearposts = await post.aggregate([
+  //     { 
+  //           "$geoNear": {
+  //               "near": {
+  //                    "type": "Point",
+  //                    "coordinates": [parseFloat(req.params.lng), parseFloat(req.params.lat)]
+  //                },
+  //                "distanceField": "distance",
+  //                "maxDistance": 1000,
+  //                "spherical": true,
+  //                "query": { "loc.type": "Point" }
+  //            }
+  //       },
+  //       { 
+  //            "$sort": {"distance": -1}
+  //       } 
+  //   ]);
+  //   if(!nearposts){
+  //     return res.status(400).send({errors: "Function did not work"});
+  //   }
+  //   res.json(nearposts);
+  // }
+  // catch (err){
+  //   console.error(err.message);
+  //   res.status(500).send('server Error');
+  // }
+  
+  
+  
+  
+  // try {
+  //   const posts = await Posts.find({}).sort({ date: -1 });
+  //   res.json(posts);
+  // } catch (err) {
+  //   console.error(err.message);
+  //   res.status(500).send('server Error');
+  // }
 });
 
 //DELETE post

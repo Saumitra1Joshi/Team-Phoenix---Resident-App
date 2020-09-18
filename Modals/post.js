@@ -2,14 +2,14 @@ const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
 const locationSchema = new Schema({
-  "type": "Feature",
-  "geometry": {
-    "type": "Point",
-    "coordinates": [Number]
-  },
-  "properties": {
-    "name": String
-  }
+    type: {
+      type: String,
+      default: "Point"
+    },
+    coordinates: {
+      type: [Number],
+      index: "2dsphere"
+    }
 });
 
 const PostSchema = new Schema(

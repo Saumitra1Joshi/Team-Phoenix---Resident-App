@@ -6,12 +6,13 @@ const auth = require('../../Middleware/Auth');
 
 router.put('/', auth, async (req, res) => {
   try {
-    const user = await Users.findOne(req.user.id);
+    const user = await Users.findOne({_id:req.user.id});
     if (!user) {
       return res.status(400).send({ error: 'User not found' });
     }
     user.location = req.body.location;
     await user.save();
+    return res.json(user.location);
   } catch (err) {
     console.log(err.message);
     res.status(500).send('Server error');
