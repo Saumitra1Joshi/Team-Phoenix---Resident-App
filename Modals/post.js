@@ -12,54 +12,59 @@ const locationSchema = new Schema({
   }
 });
 
-const PostSchema = new Schema({
-  author: {
-    type: Schema.Types.ObjectId,
-    ref: 'user',
-  },
-  title: {
-    type: String,
-    required: true,
-  },
-  description: {
-    type: String,
-    required: true,
-  },
-  imgURL: {
-    type: String,
-  },
-  location: locationSchema,
-  upvotes: [
-    {
-      user: {
-        type: Schema.Types.ObjectId,
-        ref: 'user',
-      },
+const PostSchema = new Schema(
+  {
+    author: {
+      type: Schema.Types.ObjectId,
+      ref: 'user',
     },
-  ],
-  downvotes: [
-    {
-      user: {
-        type: Schema.Types.ObjectId,
-        ref: 'user',
-      },
+    title: {
+      type: String,
+      required: true,
     },
-  ],
-  flags: [
-    {
-      user: {
-        type: Schema.Types.ObjectId,
-        ref: 'user',
-      },
+    description: {
+      type: String,
+      required: true,
     },
-  ],
-  expiry: {
-    type: Boolean,
-    default: false,
+    imgURL: {
+      type: String,
+    },
+    location: locationSchema,
+    upvotes: [
+      {
+        user: {
+          type: Schema.Types.ObjectId,
+          ref: 'user',
+        },
+      },
+    ],
+    downvotes: [
+      {
+        user: {
+          type: Schema.Types.ObjectId,
+          ref: 'user',
+        },
+      },
+    ],
+    flags: [
+      {
+        user: {
+          type: Schema.Types.ObjectId,
+          ref: 'user',
+        },
+      },
+    ],
+    expiry: {
+      type: Boolean,
+      default: false,
+    },
+    tags: [String],
+    date: {
+      type: Date,
+      default: Date.now,
+    },
   },
-  tags: [String],
-  date: {
-    type: Date,
-    default: Date.now,
-  },
-});
+  { timestamps: true }
+);
+
+module.exports = mongoose.model('post', PostSchema);
