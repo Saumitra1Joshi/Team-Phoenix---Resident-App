@@ -36,4 +36,31 @@ function classify_comment(comment){
     });
     
 }
-module.exports = {classify_comment}
+
+function classify_image(img_link)
+{
+    var request = require('request');   // install request module by - 'npm install request'
+    var querystring = require('querystring')
+
+    const form_data = {
+        'modelId' : 'e4745b0e-70fb-447e-8870-61566137c8ab',
+     'urls': img_link
+    }
+
+    const options = {
+        url : 'https://app.nanonets.com/api/v2/ImageCategorization/LabelUrls/',
+        body: querystring.stringify(form_data),
+        headers: {
+            'Authorization' : 'Basic ' + Buffer.from('-haYmFRR1siZGxd6GqF0fB3frdMLXqV5' + ':').toString('base64'),
+            'Content-Type': 'application/x-www-form-urlencoded'
+        }
+    }
+    request.post(options, function(err, httpResponse, body) {
+        body = JSON.parse(body)
+        if(body.result[0].prediction[0].probability<0.6)
+            return true
+        else 
+            return false
+    });
+}
+module.exports = {classify_comment, classify_image}
